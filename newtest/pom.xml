@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cake.qe</groupId>
+    <artifactId>cake_gw_api</artifactId>
+    <version>1.0.0</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>leapset.snapshot.repository</id>
+            <name>Archiva Managed Leapset SNAPSHOT Repository</name>
+            <url>http://repo.leapset.com/archiva/repository/snapshot/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>leapset.repository</id>
+            <url>http://repo.leapset.com/archiva/repository/snapshot/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.cake.qe</groupId>
+            <artifactId>cake_admin_api</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.syscolab.qe</groupId>
+            <artifactId>qe-core</artifactId>
+            <version>2.1.15</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cake.qe</groupId>
+            <artifactId>cake_sf_connector_api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.syscolab.qe</groupId>
+            <artifactId>online-ordering-web-interface</artifactId>
+            <version>1.0.18</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cake.qe</groupId>
+            <artifactId>cake_qcenter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+
+    <properties>
+        <suite>regression</suite>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>TST1</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <source>1.7</source>
+                            <target>1.7</target>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>./src/test/${suite}.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <forkMode>never</forkMode>
+                            <systemProperties>
+                                <property>
+                                    <name>update.dashboard</name>
+                                    <value>true</value>
+                                </property>
+                                <property>
+                                    <name>tests.env</name>
+                                    <value>tst1</value>
+                                </property>
+                                <property>
+                                    <name>base.domain</name>
+                                    <value>-api.cake.net</value>
+                                </property>
+                                <property>
+                                    <name>labor.base.path</name>
+                                    <value>/labor/v1</value>
+                                </property>
+                                <property>
+                                    <name>base.port</name>
+                                    <value>443</value>
+                                </property>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>
+                    http://18.206.142.102:9000
+                </sonar.host.url>
+            </properties>
+        </profile>
+    </profiles>
+</project>
