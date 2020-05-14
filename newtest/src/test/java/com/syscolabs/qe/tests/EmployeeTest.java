@@ -28,7 +28,7 @@ public class EmployeeTest  extends TestBase{
         setExecutionEnvironment();
     }
 
-    @Test(description = "Test API GW Health", alwaysRun = true)
+    @Test(description = "EmployeeTest", alwaysRun = true)
     public void testEmployees() throws JSONException {
         SoftAssert softAssert = new SoftAssert();
         HashMap<String, String> headers = new HashMap();
